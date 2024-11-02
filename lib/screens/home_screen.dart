@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_grade_calcualtor/screens/result_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,53 +28,91 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     print(result);
-    setState(() {});
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ResultScreen(
+            result: result,
+          ),
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: Text('Grade Calculator'),
+        backgroundColor: Colors.blue.shade600,
+        elevation: 4,
+        title: const Text(
+          'Grade Calculator',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: TextField(
-              controller: gradeController,
-              keyboardType: TextInputType.number,
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.blue.shade50, Colors.white],
           ),
-          Padding(
-            padding: const EdgeInsets.all(38.0),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.red)),
-              onPressed: () {
-                calculate();
-              },
-              child: Text(
-                "Calculate",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: TextField(
+                controller: gradeController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Enter Grade',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide:
+                        BorderSide(color: Colors.blue.shade600, width: 2),
+                  ),
                 ),
               ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(38),
-            child: Text(
-              result,
-              style: TextStyle(
-                fontSize: 70,
-                color: Colors.red.shade300,
+            Padding(
+              padding: const EdgeInsets.all(38.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue.shade600,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () {
+                  calculate();
+                },
+                child: const Text(
+                  "Calculate",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
               ),
             ),
-          )
-        ],
+            Container(
+              padding: const EdgeInsets.all(38),
+              child: Text(
+                result,
+                style: TextStyle(
+                  fontSize: 70,
+                  color: Colors.blue.shade600,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
